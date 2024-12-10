@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed>
+    <title>Watson - Derniers liens partagés</title>
+    <updated>{{ "now"|date('c') }}</updated>
+    <base>{{ app.request.schemeAndHttpHost }}</base>
+
+    {% if links is not empty %}
+        <links>
+        {% for link in links %}
+            <link>
+                <title>{{ link.title|default('Sans titre')|e }}</title>
+                <url>{{ link.url|e }}</url>
+                
+                {% if link.tags is defined and link.tags is not empty %}
+                <tags>
+                    {% for tag in link.tags %}
+                    <tag>{{ tag.title|e }}</tag>
+                    {% endfor %}
+                </tags>
+                {% endif %}
+                
+                {% if link.user %}
+                <author>{{ link.user.username|e }}</author>
+                {% endif %}
+            </link>
+        {% endfor %}
+        </links>
+    {% else %}
+        <message>Aucun lien n'a été partagé pour le moment.</message>
+    {% endif %}
+</feed>
