@@ -62,11 +62,36 @@
                 </tr>
                 {% endfor %}
             </table>
-        </div>
-        {% else %}
-        <div class="alert alert-warning">No links found.</div>
-        {% endif %}
-    </div>
+            {# Pagination - toujours affichée #}
+                <nav aria-label="Page navigation" class="text-center">
+                    <ul class="pagination">
+                        {# Previous page link #}
+                        <li class="{{ currentPage == 1 ? 'disabled' : '' }}">
+                            <a href="{{ path('admin', {'page': currentPage-1}) }}" aria-label="Previous" {{ currentPage == 1 ? 'onclick="return false;"' : '' }}>
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        {# Page numbers #}
+                        {% for i in 1..numPages|default(1) %}
+                        <li class="{{ currentPage == i ? 'active' : '' }}">
+                            <a href="{{ path('admin', {'page': i}) }}">{{ i }}</a>
+                        </li>
+                        {% endfor %}
+
+                        {# Next page link #}
+                        <li class="{{ currentPage == numPages|default(1) ? 'disabled' : '' }}">
+                            <a href="{{ path('admin', {'page': currentPage+1}) }}" aria-label="Next" {{ currentPage == numPages|default(1) ? 'onclick="return false;"' : '' }}>
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                </div>
+                {% else %}
+                <div class="alert alert-warning">No links found.</div>
+                {% endif %}
+            </div>
 
     <div class="tab-pane fade adminTable" id="users">
         <a href="{{ path('admin_user_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add user</button></a>
