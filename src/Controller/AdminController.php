@@ -16,13 +16,26 @@ class AdminController {
      * Admin home page controller.
      *
      * @param Application $app Silex application
+     * @param Request $request Incoming request
      */
-    public function indexAction(Application $app) {
-        $links = $app['dao.link']->findAll();
+    public function indexAction(Application $app, Request $request) {
+        // Get current page from query parameter, default to 1 if not set
+        $page = $request->query->get('page', 1);
+                
+        // Get paginated links
+        $result = $app['dao.link']->findAllPaginated($page);
+        $links = $result['links'];
+        $numPages = $result['pages'];
+        
+        // Get all users (no pagination needed for users as there are typically few)
         $users = $app['dao.user']->findAll();
+        
         return $app['twig']->render('admin.html.twig', array(
             'links' => $links,
-            'users' => $users));
+            'users' => $users,
+            'currentPage' => $page,
+            'numPages' => $numPages
+        ));
     }
 
     /**
