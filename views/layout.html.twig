@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,51 +10,70 @@
 </head>
 <body>
     <div class="container">
-        <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" id="logo" href="{{ path('home') }}">Watson</a>
-                </div>
-                <div class="collapse navbar-collapse" id="navbar-collapse-target">
-                    <ul class="nav navbar-nav navbar-right">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" id="logo" href="{{ path('home') }}">
+                    <!-- ajout d'un span pour rendre le texte "Watson" caché visuellement-->
+                    <span class="sr-only">Watson</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
                         {% if app.user and is_granted('ROLE_ADMIN') %}
-                            <li class="{% if adminMenu is defined %}active{% endif %}"><a href="{{ path('admin') }}"><span class="glyphicon glyphicon-cog"></span> Administration</a></li>
-                        {% endif %}
+                            <li class="nav-item {% if adminMenu is defined %}active{% endif %}">
+                            <!-- Menu Administration -->
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-gear"></i> Administration
+                            </a>
+                            <!-- Ajout style pour le menu déroulant  -->
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownAdmin" style="top: 100%; margin-top: var(--bs-dropdown-spacer); left: auto !important;">
+                                <!-- Lien vers la page d'administration -->
+                                <li><a class="dropdown-item" href="{{ path('admin') }}">Administration</a></li>
+                                <li><a class="dropdown-item" href="{{ path('admin_link_add') }}">Ajout d'un lien</a></li>
+                                <li><a class="dropdown-item" href="{{ path('admin_user_add') }}">Ajout d'un utilisateur</a></li>
+
+                            </ul>
+                        </li>
                         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span> Welcome, {{ app.user.username }} <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path('logout') }}">Log out</a></li>
+                            <!-- Menu Utilisateur connecté -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person"></i> Welcome, {{ app.user.username }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
+                                    <!-- Lien pour déconnexion -->
+                                    <li><a class="dropdown-item" href="{{ path('logout') }}">Log out</a></li>
                                 </ul>
                             </li>
-                        {% else %}
-                            <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span> Not connected <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path('login') }}">Log in</a></li>
+                        {% endif %}
+                            {% else %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person"></i> Not connected
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ path('login') }}">Log in</a></li>
                                 </ul>
                             </li>
                         {% endif %}
                     </ul>
                 </div>
-            </div><!-- /.container -->
+            </div>
         </nav>
+        
+        <!-- Main Content -->
         <div id="content">{% block content %}{% endblock %}</div>
-        <footer class="footer">
+        
+        <!-- Footer -->
+        <footer class="footer text-center mt-5">
             Watson - Made with love by CvTIC and his students
         </footer>
     </div>
-    
-    <!-- jQuery -->
-    <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
-    <!-- JavaScript Boostrap plugin -->
-    <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap 5 JS Bundle (includes Popper.js) -->
+    <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
