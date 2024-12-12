@@ -1,23 +1,41 @@
 body { 
-    padding-top: 100px; 
+    padding-top: 60px; 
 }
 
-#logo{
-	width:230px;
-	height: 0;
-	display: block;
-	overflow: hidden;
-	padding-top: 76px;
-	font-size: 0;
-	background: url("../images/logo.png") no-repeat center center;
+
+.navbar {
+    padding: 5px 0; /* diminue l'espace autour du contenu dans la barre de navigation */
 }
+
+
+.navbar-brand {
+    padding: 5px 0; /* diminue le padding autour du logo */
+}
+
+/* rend le texte "Watson" invisible,*/
+.navbar-brand span.sr-only {
+    font-size: 0;
+}
+
+
+#logo {
+    width: 150px; 
+    height: auto; 
+    display: block;
+    overflow: hidden;
+    padding-top: 5px; /* espace au-dessus du logo */
+    background: url("../images/logo.png") no-repeat center center;
+    background-size: contain; 
+}
+
 
 .footer {
     border-top: 1px solid #ccc;
-    padding-top: 10px;
+    padding-top: 5px; 
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px; 
 }
+
 
 .articleTitle:hover, .articleTitle:focus {
     text-decoration: none;
