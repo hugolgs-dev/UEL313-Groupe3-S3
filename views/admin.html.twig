@@ -5,25 +5,37 @@
 
 {% block content %}
 <h2 class="text-center">{{ block('title') }}</h2>
+
 {% for flashMessage in app.session.flashbag.get('success') %}
-<div class="alert alert-success">
-    {{ flashMessage }}
-</div>
+    <div class="alert alert-success">
+        {{ flashMessage }}
+    </div>
 {% endfor %}
+
 <div class="row">
-    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-        <ul class="nav nav-tabs nav-justified">
-            <li class="active"><a href="#links" data-toggle="tab">Links</a></li>
-            <li><a href="#users" data-toggle="tab">Users</a></li>
+    <div class="col-8 offset-2 col-md-6 offset-md-3">
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+                <a class="nav-link active" id="links-tab" data-bs-toggle="pill" href="#links">Links</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="users-tab" data-bs-toggle="pill" href="#users">Users</a>
+            </li>
         </ul>
     </div>
 </div>
+
 <div class="tab-content">
-    <div class="tab-pane fade in active adminTable" id="links">
-        <a href="{{ path('admin_link_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add link</button></a>
+    <div class="tab-pane fade show active adminTable" id="links">
+        <a href="{{ path('admin_link_add') }}">
+            <button type="button" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add link
+            </button>
+        </a>
+
         {% if links %}
         <div class="table-responsive">
-            <table class="table table-hover table-condensed">
+            <table class="table table-hover table-sm">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -32,35 +44,41 @@
                         <th></th>  <!-- Actions column -->
                     </tr>
                 </thead>
-                {% for link in links %}
-                <tr>
-                    <td><a class="linkTitle" href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a></td>
-                    <td>{{ link.user.username }}</td>
-                    <td>{{ link.desc | truncate(60) }}</td>
-                    <td>
-                        <a href="{{ path('admin_link_edit', { 'id': link.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#linkDialog{{ link.id }}"><span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <div class="modal fade" id="linkDialog{{ link.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
+                <tbody>
+                    {% for link in links %}
+                    <tr>
+                        <td><a class="linkTitle" href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a></td>
+                        <td>{{ link.user.username }}</td>
+                        <td>{{ link.desc | truncate(60) }}</td>
+                        <td>
+                            <a href="{{ path('admin_link_edit', { 'id': link.id }) }}" class="btn btn-info btn-sm" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <button type="button" class="btn btn-danger btn-sm" title="Delete" data-bs-toggle="modal" data-bs-target="#linkDialog{{ link.id }}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+
+                            <div class="modal fade" id="linkDialog{{ link.id }}" tabindex="-1" aria-labelledby="linkDialogLabel{{ link.id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h5 class="modal-title" id="linkDialogLabel{{ link.id }}">Confirmation needed</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you really want to delete this link?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <a href="{{ path('admin_link_delete', { 'id': link.id }) }}" class="btn btn-danger">Confirm</a>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        Do you really want to delete this link ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <a href="{{ path('admin_link_delete', { 'id': link.id }) }}" class="btn btn-danger">Confirm</a>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    </td>
-                </tr>
-                {% endfor %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
         {% else %}
@@ -69,43 +87,54 @@
     </div>
 
     <div class="tab-pane fade adminTable" id="users">
-        <a href="{{ path('admin_user_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add user</button></a>
+        <a href="{{ path('admin_user_add') }}">
+            <button type="button" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add user
+            </button>
+        </a>
+
         {% if users %}
         <div class="table-responsive">
-            <table class="table table-hover table-condensed">
+            <table class="table table-hover table-sm">
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th></th>  <!-- Actions column -->
                     </tr>
                 </thead>
-                {% for user in users %}
-                <tr>
-                    <td>{{ user.username }}</a></td>
-                    <td>
-                        <a href="{{ path('admin_user_edit', { 'id': user.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <div class="modal fade" id="userDialog{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            <a href="{{ path('admin_user_edit', { 'id': user.id }) }}" class="btn btn-info btn-sm" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <button type="button" class="btn btn-danger btn-sm" title="Delete" data-bs-toggle="modal" data-bs-target="#userDialog{{ user.id }}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+
+                            <div class="modal fade" id="userDialog{{ user.id }}" tabindex="-1" aria-labelledby="userDialogLabel{{ user.id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h5 class="modal-title" id="userDialogLabel{{ user.id }}">Confirmation needed</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you really want to delete this user?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <a href="{{ path('admin_user_delete', { 'id': user.id }) }}" class="btn btn-danger">Confirm</a>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        Do you really want to delete this user ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <a href="{{ path('admin_user_delete', { 'id': user.id }) }}" class="btn btn-danger">Confirm</a>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    </td>
-                </tr>
-                {% endfor %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
         {% else %}
@@ -113,4 +142,5 @@
         {% endif %}
     </div>
 </div>
+
 {% endblock %}
