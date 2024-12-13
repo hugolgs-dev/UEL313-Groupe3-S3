@@ -17,6 +17,12 @@ body {
     font-size: 0;
 }
 
+/* couleur card formulaire */
+.custom-header {
+    background-color: rgb(33, 37, 41) !important; /* Fond noir */
+    color: white !important; /* Texte blanc */
+}
+
 
 #logo {
     width: 150px; 
