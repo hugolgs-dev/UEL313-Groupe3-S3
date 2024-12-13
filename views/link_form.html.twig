@@ -4,70 +4,89 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<h2 class="text-center">{{ block('title') }}</h2>
-{% for flashMessage in app.session.flashbag.get('success') %}
-<div class="alert alert-success">
-    {{ flashMessage }}
-</div>
-{% endfor %}
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">{{ block('title') }}</h2>
 
-<div class="well">
-{{ form_start(linkForm, { 'attr': {'class': 'form-horizontal'} }) }}
-    <div class="form-group">
-        {{ form_label(linkForm.url, null, { 'label_attr':  {
-            'class': 'col-sm-4 control-label'
-        }}) }}
-        <div class="col-sm-6">
-            {{ form_errors(linkForm.url) }}
-            {{ form_widget(linkForm.url, { 'attr':  {
-                'class': 'form-control'
-            }}) }}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ flashMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+
+    <!-- Card with smaller shadow -->
+    <div class="card shadow-sm" style="max-width: 600px; margin: 0 auto; --bs-card-spacer-y: 2rem;">
+        <div class="card-header bg-dark text-white py-3 custom-header">
+            <h5 class="mb-0">Ajout d'un lien</h5>
+        </div>
+        <div class="card-body">
+            {{ form_start(linkForm, { 'attr': {'class': 'row g-3'} }) }}
+
+            <div class="mb-3 row align-items-center">
+                {{ form_label(linkForm.url, null, { 'label_attr':  {
+                    'class': 'col-form-label col-md-4 text-md-end'
+                }}) }}
+                <div class="col-md-6">
+                    <div class="input-group">
+                        {{ form_widget(linkForm.url, { 'attr':  {
+                            'class': 'form-control',
+                            'placeholder': 'Saisir une URL'
+                        }}) }}
+                    </div>
+                    <div class="text-danger small">{{ form_errors(linkForm.url) }}</div>
+                </div>
+            </div>
+
+            <div class="mb-3 row align-items-center">
+                {{ form_label(linkForm.title, null, { 'label_attr':  {
+                    'class': 'col-form-label col-md-4 text-md-end'
+                }}) }}
+                <div class="col-md-6">
+                    {{ form_widget(linkForm.title, { 'attr':  {
+                        'class': 'form-control',
+                        'placeholder': 'Saisir un titre'
+                    }}) }}
+                    <div class="text-danger small">{{ form_errors(linkForm.title) }}</div>
+                </div>
+            </div>
+            
+            <div class="mb-3 row align-items-center">
+                {{ form_label(linkForm.desc, null, { 'label_attr':  {
+                    'class': 'col-form-label col-md-4 text-md-end'
+                }}) }}
+                <div class="col-md-6">
+                    {{ form_widget(linkForm.desc, { 'attr':  {
+                        'class': 'form-control',
+                        'rows': '8',
+                        'placeholder': 'Saisir une description'
+                    }}) }}
+                    <div class="text-danger small">{{ form_errors(linkForm.desc) }}</div>
+                </div>
+            </div>
+
+            <div class="mb-3 row align-items-center">
+                {{ form_label(linkForm.tags, null, { 'label_attr':  {
+                    'class': 'col-form-label col-md-4 text-md-end'
+                }}) }}
+                <div class="col-md-6">
+                    {{ form_widget(linkForm.tags, { 'attr':  {
+                        'class': 'form-control',
+                        'placeholder': 'Saisir un tag'
+                    }}) }}
+                    <div class="text-danger small">{{ form_errors(linkForm.tags) }}</div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="offset-md-4 col-md-6 text-md-start">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Enregistrer
+                    </button>
+                </div>
+            </div>
+            
+            {{ form_end(linkForm) }}
         </div>
     </div>
-
-    <div class="form-group">
-        {{ form_label(linkForm.title, null, { 'label_attr':  {
-            'class': 'col-sm-4 control-label'
-        }}) }}
-        <div class="col-sm-6">
-            {{ form_errors(linkForm.title) }}
-            {{ form_widget(linkForm.title, { 'attr':  {
-                'class': 'form-control'
-            }}) }}
-        </div>
-    </div>
-    
-    <div class="form-group">
-        {{ form_label(linkForm.desc, null, { 'label_attr':  {
-            'class': 'col-sm-4 control-label'
-        }}) }}
-        <div class="col-sm-6">
-            {{ form_errors(linkForm.desc) }}
-            {{ form_widget(linkForm.desc, { 'attr':  {
-                'class': 'form-control',
-                'rows': '8'
-            }}) }}
-        </div>
-    </div>
-
-    <div class="form-group">
-        {{ form_label(linkForm.tags, null, { 'label_attr':  {
-            'class': 'col-sm-4 control-label'
-        }}) }}
-        <div class="col-sm-6">
-            {{ form_errors(linkForm.tags) }}
-            {{ form_widget(linkForm.tags, { 'attr':  {
-                'class': 'form-control'
-            }}) }}
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-3">
-            <input type="submit" class="btn btn-primary" value="Save" />
-        </div>
-    </div>
-{{ form_end(linkForm) }}
 </div>
 {% endblock %}
