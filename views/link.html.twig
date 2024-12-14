@@ -3,7 +3,6 @@
 {% block title %}{{ link.title }}{% endblock %}
 
 {% block content %}
-<p>
     <h2>{{ link.title }}</h2>
     <p>{{ link.desc }}</p>
     <a href="{{ link.url }}" title="" target="_blank">Open ></a>
@@ -14,5 +13,4 @@
     		{{ tag.title }}
     	</a>
     {% endfor %}
-</p>
 {% endblock %}

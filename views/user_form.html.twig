@@ -4,7 +4,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<h2 class="text-center text-primary mb-4">{{ block('title') }}</h2>
+<h2 class="text-center text-dark mb-4">{{ block('title') }}</h2>
 
 {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">

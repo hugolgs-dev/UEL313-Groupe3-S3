@@ -47,6 +47,14 @@ body {
     text-decoration: none;
 }
 
+.linkTitle{
+    text-decoration-line: none;
+    &:hover{
+        text-decoration-line: underline;
+    }
+}
+
+
 .adminTable {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -55,4 +63,15 @@ body {
 #errorPanel {
     padding-top: 30px;
     padding-bottom: 10px;
+}
+
+.nav-link .active{
+    color: white;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .linkCard{
+        margin: 3% auto;
+    }
 }
