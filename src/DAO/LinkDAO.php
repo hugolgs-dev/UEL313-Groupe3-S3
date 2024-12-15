@@ -47,6 +47,50 @@ class LinkDAO extends DAO
     }
 
     /**
+     * Return a paginated list of links.
+     *
+     * @param integer $page Current page number
+     * @param integer $limit Maximum number of links per page
+     * @return array Array containing links and pagination data
+     */
+    public function findAllPaginated($page = 1, $limit = 15) {
+        // Calculate offset for pagination
+        $offset = ($page - 1) * $limit;
+    
+        // Get total number of links
+        $sql = "SELECT COUNT(*) as total FROM tl_liens";
+        $result = $this->getDb()->fetchAssoc($sql);
+        $total = $result['total'];
+    
+        // Get links for current page
+        $sql = "
+            SELECT * 
+            FROM tl_liens 
+            ORDER BY lien_id DESC 
+            LIMIT :limit OFFSET :offset
+        ";
+        
+        // Utilisation de paramètres nommés pour LIMIT et OFFSET
+        $stmt = $this->getDb()->prepare($sql);
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+    
+        // Convert query result to an array of domain objects
+        $_links = array();
+        foreach ($result as $row) {
+            $linkId = $row['lien_id'];
+            $_links[$linkId] = $this->buildDomainObject($row);
+        }
+    
+        return array(
+            'links' => $_links,
+            'total' => $total,
+            'pages' => ceil($total / $limit)
+        );
+    }
+    /**
      * Returns a link matching the supplied id.
      *
      * @param integer $id The link id.
@@ -164,5 +208,29 @@ class LinkDAO extends DAO
      */
     public function deleteAllByUser($userId) {
         $this->getDb()->delete('tl_liens', array('user_id' => $userId));
+    }
+
+
+     /**
+     * Return the last 15 links, sorted by date.
+     *
+     * @return array The list of the last 15 links.
+     */
+    public function findLast15() {
+        $sql = "
+            SELECT * 
+            FROM tl_liens 
+            ORDER BY lien_id DESC 
+            LIMIT 15
+        ";
+        $result = $this->getDb()->fetchAll($sql);
+
+        // Convert query result to an array of domain objects
+        $_links = array();
+        foreach ($result as $row) {
+            $linkId = $row['lien_id'];
+            $_links[$linkId] = $this->buildDomainObject($row);
+        }
+        return $_links;
     }
 }
