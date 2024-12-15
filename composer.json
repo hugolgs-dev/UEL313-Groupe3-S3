@@ -16,6 +16,10 @@
       
     },
     "autoload": {
-        "psr-4": {"Watson\\": "src"}
+        "psr-4": {
+            "Watson\\": "src",
+            "Tests\\": "tests/"
+
+        }
     }
 }
