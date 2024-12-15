@@ -84,7 +84,7 @@ class AdminController {
             $app['session']->getFlashBag()->add('success', 'Le lien a bien été créé.');
         }
 
-        return $app['twig']->render('link_form.html.twig', array(
+        return $app['twig']->render('/forms/link_form.html.twig', array(
             'title' => 'Nouveau lien',
             'linkForm' => $linkForm->createView()));
     }
@@ -144,7 +144,7 @@ class AdminController {
             $app['dao.link']->save($link);
             $app['session']->getFlashBag()->add('success', 'Mise à jour du lien réussie.');
         }
-        return $app['twig']->render('link_form.html.twig', array(
+        return $app['twig']->render('/forms/link_form.html.twig', array(
             'title' => 'Éditer le lien',
             'linkForm' => $linkForm->createView()));
     }
@@ -190,7 +190,7 @@ class AdminController {
             $app['session']->getFlashBag()->add('success', 'L\'utilisateur a bien été créé.');
         }
 
-        return $app['twig']->render('user_form.html.twig', array(
+        return $app['twig']->render('/forms/user_form.html.twig', array(
             'title' => 'Nouvel utilisateur',
             'userForm' => $userForm->createView()));
     }
@@ -217,7 +217,7 @@ class AdminController {
             $app['dao.user']->save($user);
             $app['session']->getFlashBag()->add('success', 'Mise à jour de l\'utilisateur réussie.');
         }
-        return $app['twig']->render('user_form.html.twig', array(
+        return $app['twig']->render('/forms/user_form.html.twig', array(
             'title' => 'Éditer l\'utilisateur',
             'userForm' => $userForm->createView()));
     }

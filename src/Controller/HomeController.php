@@ -61,7 +61,7 @@ class HomeController {
      * @param Application $app Silex application
      */
     public function loginAction(Request $request, Application $app) {
-        return $app['twig']->render('login.html.twig', array(
+        return $app['twig']->render('/forms/login.html.twig', array(
             'error'         => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username'),
             )
@@ -78,7 +78,7 @@ class HomeController {
         $links = $app['dao.link']->findLast15();
         
         // Générer le contenu XML
-        $content = $app['twig']->render('feed.xml.twig', array(
+        $content = $app['twig']->render('/xml/feed.xml.twig', array(
             'links' => $links
         ));
         
