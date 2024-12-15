@@ -5,17 +5,24 @@
 {% block content %}
 	<div class="row">
 		{% for link in links %}
-			<div class="col-md-4">
-			    <h2><a class="linkTitle" href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a></h2>
+			<div class="linkCard col-md-4 p-4">
+			    <h2 class="text-center" >
+					<a class="linkTitle text-dark text-center " href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a>
+				</h2>
 			    <p>{{ link.desc }}</p>
-			    <a href="{{ link.url }}" title="" target="_blank">Open ></a>
-			    <em>(by {{ link.user.username }})</em>
 
-			    {% for tag in link.tags %}
-			    	<a href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer">
-			    		{{ tag.title }}
-			    	</a>
-			    {% endfor %}
+				<div class="d-flex justify-content-center row align-items-center" >
+					<em class="align-self-end">(by <span class="fw-bold" >{{ link.user.username }}</span>)</em>
+					<span class="my-2" >
+						Filtres:
+
+						{% for tag in link.tags %}
+							<a href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer">{{ tag.title }}</a>
+						{% endfor %}
+					</span>
+					<a class="btn btn-dark w-25 align-self-center mt-1 " href="{{ link.url }}" title="" target="_blank">Ouvrir</a>
+				</div>
+
 			</div>
 		{% endfor %}
 	</div>
