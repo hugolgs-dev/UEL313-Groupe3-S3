@@ -145,7 +145,7 @@ class AdminController {
             $app['session']->getFlashBag()->add('success', 'Mise à jour du lien réussie.');
         }
         return $app['twig']->render('link_form.html.twig', array(
-            'title' => 'Edit link',
+            'title' => 'Éditer le lien',
             'linkForm' => $linkForm->createView()));
     }
 

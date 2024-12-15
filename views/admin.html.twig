@@ -94,31 +94,28 @@
       <nav aria-label="Page navigation" class="text-center">
           <ul class="pagination">
               {# Previous page link #}
-              <li class="{{ currentPage == 1 ? 'disabled' : '' }}">
-                  <a href="{{ path('admin', {'page': currentPage-1}) }}" aria-label="Previous" {{ currentPage == 1 ? 'onclick="return false;"' : '' }}>
+              <li class="{{ currentPage == 1 ? 'disabled' : '' }} page-item">
+                  <a class="page-link"  href="{{ path('admin', {'page': currentPage-1}) }}" aria-label="Previous" {{ currentPage == 1 ? 'onclick="return false;"' : '' }}>
                       <span aria-hidden="true">&laquo;</span>
                   </a>
               </li>
 
               {# Page numbers #}
               {% for i in 1..numPages|default(1) %}
-              <li class="{{ currentPage == i ? 'active' : '' }}">
-                  <a href="{{ path('admin', {'page': i}) }}">{{ i }}</a>
+              <li class="{{ currentPage == i ? 'active' : '' }} page-item">
+                  <a class="page-link" href="{{ path('admin', {'page': i}) }}">{{ i }}</a>
               </li>
               {% endfor %}
 
               {# Next page link #}
-              <li class="{{ currentPage == numPages|default(1) ? 'disabled' : '' }}">
-                  <a href="{{ path('admin', {'page': currentPage+1}) }}" aria-label="Next" {{ currentPage == numPages|default(1) ? 'onclick="return false;"' : '' }}>
+              <li class="{{ currentPage == numPages|default(1) ? 'disabled' : '' }} page-item">
+                  <a class="page-link" href="{{ path('admin', {'page': currentPage+1}) }}" aria-label="Next" {{ currentPage == numPages|default(1) ? 'onclick="return false;"' : '' }}>
                       <span aria-hidden="true">&raquo;</span>
                   </a>
               </li>
           </ul>
       </nav>
       </div>
-      {% else %}
-      <div class="alert alert-warning">No links found.</div>
-      {% endif %}
   </div>
     <div class="tab-pane fade adminTable" id="users">
 
@@ -173,11 +170,9 @@
                 </button>
             </a>
         </div>
-
         {% else %}
         <div class="alert alert-warning">Aucun utilisateur trouvé.</div>
         {% endif %}
     </div>
-</div>
 
 {% endblock %}
