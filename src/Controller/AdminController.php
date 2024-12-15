@@ -218,7 +218,7 @@ class AdminController {
             $app['session']->getFlashBag()->add('success', 'Mise à jour de l\'utilisateur réussie.');
         }
         return $app['twig']->render('user_form.html.twig', array(
-            'title' => 'Edit user',
+            'title' => 'Éditer l\'utilisateur',
             'userForm' => $userForm->createView()));
     }
 
