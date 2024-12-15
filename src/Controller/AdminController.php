@@ -68,11 +68,11 @@ class AdminController {
                 }
             }
 
-            $app['session']->getFlashBag()->add('success', 'The link was successfully created.');
+            $app['session']->getFlashBag()->add('success', 'Le lien a bien été créé.');
         }
 
         return $app['twig']->render('link_form.html.twig', array(
-            'title' => 'New link',
+            'title' => 'Nouveau lien',
             'linkForm' => $linkForm->createView()));
     }
 
@@ -129,7 +129,7 @@ class AdminController {
             }
 
             $app['dao.link']->save($link);
-            $app['session']->getFlashBag()->add('success', 'The link was succesfully updated.');
+            $app['session']->getFlashBag()->add('success', 'Mise à jour du lien réussie.');
         }
         return $app['twig']->render('link_form.html.twig', array(
             'title' => 'Edit link',
@@ -145,7 +145,7 @@ class AdminController {
     public function deleteLinkAction($id, Application $app) {
         // Delete the link
         $app['dao.link']->delete($id);
-        $app['session']->getFlashBag()->add('success', 'The link was succesfully removed.');
+        $app['session']->getFlashBag()->add('success', 'Le lien a bien été supprimé.');
         
         // Redirect to admin home page
         return $app->redirect($app['url_generator']->generate('admin'));
@@ -174,11 +174,11 @@ class AdminController {
             $password = $encoder->encodePassword($plainPassword, $user->getSalt());
             $user->setPassword($password); 
             $app['dao.user']->save($user);
-            $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
+            $app['session']->getFlashBag()->add('success', 'L\'utilisateur a bien été créé.');
         }
 
         return $app['twig']->render('user_form.html.twig', array(
-            'title' => 'New user',
+            'title' => 'Nouvel utilisateur',
             'userForm' => $userForm->createView()));
     }
 
@@ -202,7 +202,7 @@ class AdminController {
             $password = $encoder->encodePassword($plainPassword, $user->getSalt());
             $user->setPassword($password); 
             $app['dao.user']->save($user);
-            $app['session']->getFlashBag()->add('success', 'The user was succesfully updated.');
+            $app['session']->getFlashBag()->add('success', 'Mise à jour de l\'utilisateur réussie.');
         }
         return $app['twig']->render('user_form.html.twig', array(
             'title' => 'Edit user',
@@ -221,7 +221,7 @@ class AdminController {
 
         // Delete the user
         $app['dao.user']->delete($id);
-        $app['session']->getFlashBag()->add('success', 'The user (and associated links) was succesfully removed.');
+        $app['session']->getFlashBag()->add('success', 'L\'utilisateur et les liens associés ont été supprimés');
 
         // Redirect to admin home page
         return $app->redirect($app['url_generator']->generate('admin'));

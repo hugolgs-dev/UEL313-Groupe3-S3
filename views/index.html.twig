@@ -10,7 +10,7 @@
 					<a class="linkTitle text-dark text-center " href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a>
 				</h2>
 			    <p>{{ link.desc }}</p>
-			    <a class="btn btn-dark" href="{{ link.url }}" title="" target="_blank">Ouvrir</a>
+			    <a class="btn btn-dark align-self-center " href="{{ link.url }}" title="" target="_blank">Ouvrir</a>
 			    <em>(by {{ link.user.username }})</em>
 
 			    {% for tag in link.tags %}

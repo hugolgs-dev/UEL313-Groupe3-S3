@@ -3,7 +3,7 @@
 {% block title %}User authentication{% endblock %}
 
 {% block content %}
-<h2 class="text-center text-primary mb-4">{{ block('title') }}</h2>
+<h2 class="text-center text-dark">{{ block('title') }}</h2>
 {% if error %}
 <div class="alert alert-danger">
     <strong>Login failed!</strong> {{ error }}
@@ -11,7 +11,7 @@
 {% endif %}
 <div class="card shadow-sm mx-auto w-50">
     <div class="card-header bg-dark text-white py-3">
-        <h5 class="mb-0">Authentification</h5>
+        <h5 class="mb-0 text-center">Authentification</h5>
     </div>
     <div class="card-body">
         <form class="needs-validation" novalidate role="form" action="{{ path('login_check') }}" method="post">

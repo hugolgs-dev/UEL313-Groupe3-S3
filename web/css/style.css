@@ -34,6 +34,11 @@ body {
     background-size: contain; 
 }
 
+#content{
+    margin-top: 5%;
+}
+
+
 
 .footer {
     border-top: 1px solid #ccc;
@@ -47,6 +52,7 @@ body {
     text-decoration: none;
 }
 
+
 .linkTitle{
     text-decoration-line: none;
     &:hover{
@@ -59,6 +65,7 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 
 #errorPanel {
     padding-top: 30px;

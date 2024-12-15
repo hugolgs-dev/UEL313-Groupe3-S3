@@ -12,7 +12,7 @@
     </div>
 {% endfor %}
 
-<div class="row">
+<div class="row mt-4 mb-4 ">
     <div class="col-8 offset-2 col-md-6 offset-md-3">
         <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
@@ -30,22 +30,22 @@
 
         {% if links %}
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered table-sm">
-                <thead>
+            <table class="table table-hover table-bordered table-sm ">
+                <thead class="text-center" >
                     <tr>
                         <th>Titre</th>
                         <th>Auteur</th>
                         <th>Description</th>
-                        <th></th>  <!-- Actions column -->
+                        <th>Actions</th>  <!-- Actions column -->
                     </tr>
                 </thead>
                 <tbody>
                     {% for link in links %}
                     <tr>
-                        <td><a class="linkTitle" href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a></td>
-                        <td>{{ link.user.username }}</td>
-                        <td>{{ link.desc | truncate(60) }}</td>
-                        <td>
+                        <td class="text-left p-3"><a class="linkTitle" href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a></td>
+                        <td class="text-center  p-3">{{ link.user.username }}</td>
+                        <td class="p-3">{{ link.desc | truncate(60) }}</td>
+                        <td class="m-2" >
                             <a href="{{ path('admin_link_edit', { 'id': link.id }) }}" class="btn btn-info btn-sm" title="Edit">
                                 <i class="bi bi-pencil"></i>
                             </a>
@@ -58,7 +58,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                                            <h5 class="modal-title" id="linkDialogLabel{{ link.id }}">Confirmation needed</h5>
+                                            <h5 class="modal-title" id="linkDialogLabel{{ link.id }}">Confirmez</h5>
                                         </div>
                                         <div class="modal-body">
                                             Êtes-vous sûr de vouloir supprimer ce lien?
@@ -93,12 +93,12 @@
     <div class="tab-pane fade adminTable" id="users">
 
         {% if users %}
-        <div class="table-responsive">
-            <table class="table table-hover table-sm">
-                <thead>
+        <div class="table-responsive w-25 m-auto">
+            <table class="table table-hover table-bordered table-sm ">
+                <thead class="text-center">
                     <tr>
                         <th>Nom</th>
-                        <th></th>  <!-- Actions column -->
+                        <th>Actions</th>  <!-- Actions column -->
                     </tr>
                 </thead>
                 <tbody>
